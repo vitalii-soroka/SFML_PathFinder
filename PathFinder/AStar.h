@@ -24,7 +24,7 @@ public:
 /**
 * A* (A star)  is a combination of Dijkstra and Greedy.
 */
-class AStarSearch : public SearchAlgorithm
+static class AStarSearch : public SearchAlgorithm
 {
 public:
     using SearchAlgorithm::SearchAlgorithm;

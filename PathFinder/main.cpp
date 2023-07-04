@@ -1,3 +1,4 @@
+#pragma once
 #include <queue>
 #include <array>
 #include <chrono>
@@ -14,56 +15,78 @@
 #include "Dijkstra.h"
 #include "Greedy.h"
 
+namespace properties
+{
+	const sf::Vector2i origin{ 30, 30 };
+	const sf::Vector2i cell_res{ 15, 15 };
+	const sf::Vector2i grid_res{ 30, 30 };
+	const sf::Vector2i screen_res{ 1920, 1080 };
+	const int fps(60);
+}
+
 using namespace sf;
+using namespace properties;
 
 int main()
 {
 	Event event;
+	RenderWindow window(VideoMode(screen_res.x, screen_res.y), "Pathfinder", Style::Close);
+	window.setView(View(FloatRect(0, 0, (float)screen_res.x, (float)screen_res.y)));
+	window.setFramerateLimit(fps);
 
-	RenderWindow window(VideoMode(1920, 1080), "Pathfinding", Style::Close);
-	window.setView(View(FloatRect(0, 0, 1920, 1080)));
+	ScreenManager screen_manager(window);
 
-	window.setFramerateLimit(60);
+	int boardSizeX = grid_res.x * cell_res.x;
+	int boardSizeY = grid_res.y * cell_res.y;
 
-	ScreenManager sm(window);
+	// offset from board X and Y
+	int offsetX = 2 * boardSizeX;
+	int offsetY = boardSizeY + 2 * cell_res.y;
 
-	Board bfsBoard({ 30,30 }, { 15,15 }, 30, 30);
-	Board dijkstraBoard({ 30,510 }, { 15,15 }, 30, 30);
-	Board greedyboard({ 720,30 }, { 15,15 }, 30, 30);
-	Board aStarBoard({ 720,510 }, { 15,15 }, 30, 30);
+	int boxOffsetX = boardSizeX + 2 * cell_res.x;
+	int boxOffsetY = boardSizeY + 2 * cell_res.y;
 
+	// Boards initialisation
+	Board bfsBoard({30,30}, grid_res, cell_res);
+	Board dijkstraBoard({ origin.x, origin.y + offsetY }, grid_res, cell_res);
+	Board greedyboard({ origin.x + offsetX, origin.y }, grid_res, cell_res);
+	Board aStarBoard({ origin.x + offsetX, origin.y + offsetY }, grid_res, cell_res);
+
+	// Search algorithms
 	BFSearch bfs;
 	DijkstraSearch dijkstraSearch;
 	GreedySearch greedySearch;
 	AStarSearch aStarSearch;
 
-	StatsBox statsBox("BFS", { 510,30 });
-	StatsBox statsBox2("Dijkstra", { 510,510 });
-	StatsBox statsBox3("Greedy", { 1200,30 });
-	StatsBox statsBox4("A*", { 1200,510 });
+	// Display search details
+	StatsBox BfsStats("BFS", { origin.x + boxOffsetX , origin.y });
+	StatsBox DiklstraStats("Dijkstra", { origin.x + boxOffsetX, origin.y + boxOffsetY });
+	StatsBox GreedyStats("Greedy", { origin.x + 2 * boardSizeX + boxOffsetX, origin.y });
+	StatsBox AStarStats("A*", { origin.x + 2 * boardSizeX + boxOffsetX, origin.y + boxOffsetY });
 
-	BoardHandler bfsHandler(bfsBoard, &bfs, statsBox);
-	BoardHandler dijkstraHandler(dijkstraBoard, &dijkstraSearch, statsBox2);
-	BoardHandler greedyHandler(greedyboard,&greedySearch, statsBox3);
-	BoardHandler aStartHandler(aStarBoard, &aStarSearch, statsBox4);
+	// Handlers for board, algorithm and stats
+	BoardHandler bfsHandler(bfsBoard, &bfs, BfsStats);
+	BoardHandler dijkstraHandler(dijkstraBoard, &dijkstraSearch, DiklstraStats);
+	BoardHandler greedyHandler(greedyboard,&greedySearch, GreedyStats);
+	BoardHandler aStartHandler(aStarBoard, &aStarSearch, AStarStats);
 	
-	sm.addHandler(&bfsHandler);
-	sm.addHandler(&dijkstraHandler);
-	sm.addHandler(&greedyHandler);
-	sm.addHandler(&aStartHandler);
+	screen_manager.addHandler(&bfsHandler);
+	screen_manager.addHandler(&dijkstraHandler);
+	screen_manager.addHandler(&greedyHandler);
+	screen_manager.addHandler(&aStartHandler);
 
+	// Main loop
     while (window.isOpen())
 	{
 		while (window.pollEvent(event))
 		{ 
-			sm.handleInput(event);
+			screen_manager.handleInput(event);
 		}
 
 		window.clear();
-		sm.draw();
+		screen_manager.draw();
 		window.display();
 	}
-
 	return 0;
 }
 
