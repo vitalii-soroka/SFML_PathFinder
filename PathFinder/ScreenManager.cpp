@@ -38,7 +38,8 @@ void ScreenManager::addHandler(BoardHandler* board)
 void ScreenManager::update()
 {
 	static unsigned short i = 1;
-	if (updateRate % i == 0)
+
+	if (i++ % updateRate == 0)
 	{
 		i = 1;
 		window.clear();

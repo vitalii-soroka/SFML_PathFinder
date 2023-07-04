@@ -2,7 +2,8 @@
 #include <vector>
 #include "Observer.h"
 #include "BoardHandler.h"
-#include "SFML/Graphics.hpp"
+#include "SFML/Window/Event.hpp"
+#include "SFML/Graphics/RenderWindow.hpp"
 
 /**
 * Simple Screen Manager - just to draw boards and handle input
@@ -25,7 +26,7 @@ public:
 
 private:
 	// How often boards re-drawn from update calls
-	unsigned short updateRate = 2;
+	unsigned short updateRate = 4;
 	//
 	sf::RenderWindow& window;
 	std::vector<BoardHandler*> boards_handlers;
