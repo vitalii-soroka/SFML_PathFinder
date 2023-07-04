@@ -1,8 +1,7 @@
 # SFML_PathFinder
 
 ### Introduction
-![PathFinder](https://github.com/vitalii-soroka/SFML_PathFinder/assets/58570486/fa9d4f5d-b2ce-484a-9fbd-3e5e1e9fd842)
-![Pathfinder_examole_2](https://github.com/vitalii-soroka/SFML_PathFinder/assets/58570486/736dec48-60a7-4208-a179-f27143d5258a)
+![Path_Finder_example](https://github.com/vitalii-soroka/SFML_PathFinder/assets/58570486/4b8854fe-c9d9-4fb0-a2e6-d3f14993becb)
 
 This GitHub project is a path finder application written in C++ using the SFML library. 
 It allows users to visualize and compare different pathfinding algorithms on a grid. 
