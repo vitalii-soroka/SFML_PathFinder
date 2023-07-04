@@ -1,10 +1,9 @@
 # SFML_PathFinder
 
 ### Introduction
-
-This GitHub project is a path finder application written in C++ using the SFML library. 
-It allows users to visualize and compare different pathfinding algorithms on a grid. 
-The application provides an interactive to draw obstacles on grid, visualize the pathfinding process, and view statistics.
+This GitHub project is a C ++ path finder program that makes use of the SFML library.
+Users can evaluate and visualize various pathfinding algorithms on a grid.
+The application offers an interactive way to draw obstacles on grid, visualize the pathfinding process, and view statistics.
 
 ![Path_Finder_example](https://github.com/vitalii-soroka/SFML_PathFinder/assets/58570486/4b8854fe-c9d9-4fb0-a2e6-d3f14993becb)
 
@@ -22,8 +21,8 @@ The path finder application is built using the following technologies and tools:
     
 ### Installation:
 1. [ ] Clone this project from GitHub
-2. [ ] Download SFML version 2.6.0 or above from the official [SFML](www.sfml-dev.org) website.
-3. [ ] Open the project folder in your preferred C++ IDE or code editor.
+2. [ ] Visit the official [SFML](www.sfml-dev.org) website to obtain version 2.6.0 or higher.
+3. [ ] In your preferred C ++ IDE or code editor, open the project folder.
 4. [ ] Add SFML to your project.
 5. [ ] Build and compile the source code.
 6. [ ] Run project.
